@@ -5,158 +5,155 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WWO Unblocked Games Test</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/blogDexStyle.css">
-  <link rel="stylesheet" href="css/seasonal.css">
   <link rel="icon" href="img/favicon-32x32.png">
-  <meta name="description" content="Play free unblocked games anytime and anywhere! Enjoy a wide selection of fun, exciting, and safe games for school or work">
-
   <style>
-    #pin-lock {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      color: lime;
+    body {
+      margin: 0;
       font-family: 'Courier New', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 9999;
-    }
-
-    #pin-lock input,
-    #pin-lock button {
-      padding: 10px;
-      font-size: 16px;
-      margin-top: 10px;
-      font-family: inherit;
-    }
-
-    #pin-lock button {
-      background-color: lime;
-      color: black;
-      border: none;
-      cursor: pointer;
-    }
-
-    #pin-lock h2 {
-      margin-bottom: 10px;
+      background-color: #111;
+      color: lime;
     }
 
     .hidden {
       display: none;
     }
 
-    a {
+    #pin-lock, #fake-math, #dev-console, #teacher-search {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
       color: lime;
-      text-decoration: underline;
+    }
+
+    input, button, textarea {
+      padding: 10px;
       margin-top: 10px;
+      font-family: inherit;
+      font-size: 16px;
+    }
+
+    button {
       cursor: pointer;
+      background: lime;
+      border: none;
+      color: black;
     }
 
-    #flashing-text {
+    #dev-only-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 10000;
+      background: red;
+      color: white;
+      font-weight: bold;
+    }
+
+    .title {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      margin: 8px 0;
+    }
+
+    #game-container {
+      padding: 20px;
       color: red;
-      animation: flash 1s infinite;
     }
 
-    @keyframes flash {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
+    #fake-math {
+      background: white;
+      color: black;
+    }
+
+    #teacher-search {
+      color: lime;
     }
   </style>
 </head>
 
 <body>
-  <!-- PIN LOCK OVERLAY -->
-  <div id="pin-lock">
-    <div id="pin-entry-screen">
-      <h2>Enter Access PIN</h2>
-      <input type="password" id="pin-input" placeholder="Enter PIN" />
-      <button onclick="checkPIN()">Unlock</button>
-      <p id="pin-message" style="color: red;"></p>
-      <a onclick="showGetPinScreen()">Get PIN</a>
-    </div>
 
+  <!-- Fake Math Page -->
+  <div id="fake-math">
+    <h2>Math Homework Portal</h2>
+    <p>Solve: 2x + 4 = 10</p>
+    <button onclick="showPinFromMath()">Hand in Homework</button>
+  </div>
+
+  <!-- PIN LOCK -->
+  <div id="pin-lock" class="hidden">
+    <h2>Enter Access PIN</h2>
+    <input type="password" id="pin-input" placeholder="Enter PIN">
+    <button onclick="checkPIN()">Unlock</button>
+    <p id="pin-message" style="color:red;"></p>
+    <a href="#" onclick="showGetPinScreen()">Get PIN</a>
     <div id="get-pin-screen" class="hidden">
-      <h2 id="flashing-text">Sub to Will's YT!</h2>
+      <h2 style="color:red;">Sub to Will's YT!</h2>
       <p id="pin-reveal-message">Please wait 1 minute...</p>
       <button class="hidden" id="back-to-pin" onclick="showPinEntry()">Go Back</button>
     </div>
   </div>
 
-  <!-- MAIN CONTENT (initially hidden) -->
+  <!-- Main Content -->
   <div class="wrapper hidden" id="main-content">
-    <div class="sidebar">
-      <h2>WWO Unblocked Games Test</h2>
-      <ul>
-        <a href="index.html"><li class="selectedButton"><i class="fa-solid fa-house"></i> Home</li></a>
-        <a href="#"><li><i class="fa-solid fa-bug"></i> Bug Report</li></a>
-        <a href="#"><li><i class="fa-solid fa-ghost"></i> Game Request</li></a>
-        <a href="pages/settings.html"><li><i class="fa-solid fa-gear"></i> Settings</li></a>
-        <a><li id="go-to-top-button"><i class="fa-solid fa-up-long"></i> Top</li></a>
-      </ul>
-      <div class="left-col">
-        <img title="icon" src="img/icon.png" width="199px" />
-      </div>
-      <div>
-        <center><img src="https://visit-counter.vercel.app/counter.png?page=example.com&s=25&c=ffffff&bg=00000000&no=6&ff=digi&tb=&ta=" alt="visits"></center>
-      </div>
-    </div>
-
-    <div class="main_content">
-      <div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <span id="random-quote">Loading...</span>
-      </div>
-      <div class="info">
-        <header>
-          <h1><div class="title">WWO Unblocked Games Test</div></h1>
-          <div class="right-col"><img title="music_icon" id="icon" src="img/play.png" /></div>
-          <audio id="mySong"><source src="media/beet-juice.mp4" type="audio/ogg" /></audio>
-        </header>
-        <br />
-      </div>
-
-      <!-- Navbar and Game Buttons -->
-      <ul id="navbar">
-        <div class="search-bar" style="margin-top: -25px">
-          <input type="text" id="myinput" onkeyup="searchFunction()" placeholder="Search">
-          <br>
-        </div>
-        <li class="nav"><button onclick="switchGame('all');" class="selectedButton selectable">All</button></li>
-        <li class="nav"><button onclick="switchGame('new');" class="selectButton selectable">New</button></li>
-        <li class="nav"><button onclick="switchGame('flash');" class="selectButton selectable">Flash</button></li>
-        <li class="nav"><button onclick="switchGame('gba');" class="selectButton selectable">GBA</button></li>
-        <li class="nav"><button onclick="switchGame('multi');" class="selectButton selectable">Multiplayer</button></li>
-      </ul>
-
-      <div class="bodyMain">
-        <div class="main">
-          <div class="row" id="game-container"></div>
-          <script src="js/games.js"></script>
-          <script src="js/renderGames.js"></script>
-        </div>
-        <div id="progress"><span id="progress-value"></span></div>
-      </div>
-
-      <script src="js/disguise.js"></script>
-      <script src="js/main.js"></script>
-      <script src="js/seasonal.js"></script>
+    <h1 class="title">WWO Unblocked Games Test</h1>
+    <div id="game-container">
+      <p>Access restricted by Will</p>
+      <p>Appeal Below:</p>
+      <textarea placeholder="Explain why you deserve game access..." style="width: 100%; height: 100px;"></textarea>
+      <button onclick="submitAppeal()">Submit Appeal</button>
+      <p id="appeal-msg"></p>
     </div>
   </div>
 
-  <!-- Particles & JS -->
-  <div id="tsparticles"></div>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.8.1/tsparticles.bundle.min.js"></script>
+  <!-- Will's Dev Button -->
+  <button id="dev-only-btn" onclick="showDevConsole()">Will's Dev Only</button>
 
+  <!-- Dev Console -->
+  <div id="dev-console" class="hidden">
+    <h1>Removing Shaw Education DND...</h1>
+    <p id="dev-progress">This may take up to 20 minutes...</p>
+    <button onclick="showTeacherSearch()">See Teacher Search History</button>
+    <button onclick="lockIpads()">Lock Everyone’s iPad</button>
+  </div>
+
+  <!-- Fake Teacher Search Page -->
+  <div id="teacher-search" class="hidden">
+    <h2>Teacher Search History</h2>
+    <ul>
+      <li>Mr. Hays: "how to win class debates"</li>
+      <li>Mr. Loe: "minecraft mod for math class"</li>
+      <li>Mr. Fair: "are memes educational?"</li>
+      <li>Mr. Allen: "can I ban homework?"</li>
+      <li>Mrs. Davies: "cool math tricks to impress students"</li>
+      <li>Mr. Nevin: "how to block games (lol)"</li>
+      <li>Mr. Swan: "duck jokes for assemblies"</li>
+    </ul>
+    <button onclick="hideTeacherSearch()">Go Back</button>
+  </div>
+
+  <!-- Scripts -->
   <script>
+    // Show PIN after math page
+    function showPinFromMath() {
+      document.getElementById("fake-math").style.display = "none";
+      document.getElementById("pin-lock").style.display = "flex";
+    }
+
     function checkPIN() {
       const input = document.getElementById('pin-input').value.trim();
       if (input === "test") {
@@ -168,19 +165,62 @@
     }
 
     function showGetPinScreen() {
-      document.getElementById('pin-entry-screen').classList.add('hidden');
+      document.getElementById('pin-input').classList.add('hidden');
       document.getElementById('get-pin-screen').classList.remove('hidden');
-
       setTimeout(() => {
         document.getElementById('pin-reveal-message').textContent = "The PIN is: test";
         document.getElementById('back-to-pin').classList.remove('hidden');
-      }, 60000); // 1 minute
+      }, 60000);
     }
 
     function showPinEntry() {
       document.getElementById('get-pin-screen').classList.add('hidden');
-      document.getElementById('pin-entry-screen').classList.remove('hidden');
+      document.getElementById('pin-input').classList.remove('hidden');
+    }
+
+    function showDevConsole() {
+      document.getElementById("main-content").classList.add("hidden");
+      document.getElementById("dev-console").classList.remove("hidden");
+      document.body.style.background = "black";
+      let counter = 0;
+      const progress = document.getElementById("dev-progress");
+      const steps = [
+        "Deleting protocols...",
+        "Hacking into mainframe...",
+        "Injecting will-overdrive.js...",
+        "Removing Shaw Education firewall...",
+        "✅ Everything is now deleted. You can't go back."
+      ];
+      const interval = setInterval(() => {
+        if (counter < steps.length) {
+          progress.textContent = steps[counter++];
+        } else {
+          clearInterval(interval);
+        }
+      }, 1500);
+    }
+
+    function showTeacherSearch() {
+      document.getElementById("dev-console").classList.add("hidden");
+      document.getElementById("teacher-search").classList.remove("hidden");
+    }
+
+    function hideTeacherSearch() {
+      document.getElementById("teacher-search").classList.add("hidden");
+      document.getElementById("dev-console").classList.remove("hidden");
+    }
+
+    function lockIpads() {
+      alert("Locking all web pages...");
+      setTimeout(() => {
+        alert("Just kidding 😎 JavaScript can’t do that.");
+      }, 20000);
+    }
+
+    function submitAppeal() {
+      document.getElementById("appeal-msg").innerText = "Sent to Will. This may take a couple of days. Or never.";
     }
   </script>
+
 </body>
 </html>
