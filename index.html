@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>WWO Unblocked Games Test</title>
-  <link rel="icon" href="img/favicon-32x32.png">
   <style>
     body {
       margin: 0;
@@ -14,11 +12,17 @@
       color: lime;
     }
 
-    .hidden {
-      display: none;
+    .hidden { display: none; }
+
+    button, input, textarea {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+      font-family: inherit;
+      cursor: pointer;
     }
 
-    #pin-lock, #fake-math, #dev-console, #teacher-search {
+    #pin-lock, #dev-console, #teacher-search {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -28,74 +32,41 @@
       align-items: center;
       flex-direction: column;
       z-index: 9999;
-      color: lime;
     }
 
-    input, button, textarea {
+    #navbar {
+      display: flex;
+      gap: 10px;
       padding: 10px;
-      margin-top: 10px;
-      font-family: inherit;
-      font-size: 16px;
+      background: #000;
+      border-bottom: 2px solid lime;
     }
 
-    button {
-      cursor: pointer;
+    .nav button {
       background: lime;
       border: none;
       color: black;
-    }
-
-    #dev-only-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 10000;
-      background: red;
-      color: white;
       font-weight: bold;
     }
 
-    .title {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    ul li {
-      margin: 8px 0;
+    .tab-content {
+      padding: 20px;
     }
 
     #game-container {
-      padding: 20px;
       color: red;
     }
 
-    #fake-math {
-      background: white;
-      color: black;
-    }
-
-    #teacher-search {
-      color: lime;
+    textarea {
+      width: 100%;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Fake Math Page -->
-  <div id="fake-math">
-    <h2>Math Homework Portal</h2>
-    <p>Solve: 2x + 4 = 10</p>
-    <button onclick="showPinFromMath()">Hand in Homework</button>
-  </div>
-
-  <!-- PIN LOCK -->
-  <div id="pin-lock" class="hidden">
+  <!-- PIN LOCK SCREEN -->
+  <div id="pin-lock">
     <h2>Enter Access PIN</h2>
     <input type="password" id="pin-input" placeholder="Enter PIN">
     <button onclick="checkPIN()">Unlock</button>
@@ -108,30 +79,50 @@
     </div>
   </div>
 
-  <!-- Main Content -->
-  <div class="wrapper hidden" id="main-content">
-    <h1 class="title">WWO Unblocked Games Test</h1>
-    <div id="game-container">
+  <!-- MAIN CONTENT -->
+  <div id="main-content" class="hidden">
+    <h1 style="text-align:center;">WWO Unblocked Games Test</h1>
+
+    <!-- Game Tabs -->
+    <div id="navbar">
+      <div class="nav"><button onclick="showTab('all')">All</button></div>
+      <div class="nav"><button onclick="showTab('new')">New</button></div>
+      <div class="nav"><button onclick="showTab('gba')">GBA</button></div>
+      <div class="nav"><button onclick="showTab('flash')">Flash</button></div>
+      <div class="nav"><button onclick="showTab('dev')">Will's Dev Only</button></div>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="tab-content" id="tab-all">
       <p>Access restricted by Will</p>
       <p>Appeal Below:</p>
-      <textarea placeholder="Explain why you deserve game access..." style="width: 100%; height: 100px;"></textarea>
+      <textarea placeholder="Explain why you deserve game access..."></textarea>
       <button onclick="submitAppeal()">Submit Appeal</button>
       <p id="appeal-msg"></p>
     </div>
+
+    <div class="tab-content hidden" id="tab-new">
+      <p>Sorry, no new games today!</p>
+    </div>
+
+    <div class="tab-content hidden" id="tab-gba">
+      <p>GBA games go here...</p>
+    </div>
+
+    <div class="tab-content hidden" id="tab-flash">
+      <p>Flash games are no longer supported... just kidding.</p>
+    </div>
+
+    <div class="tab-content hidden" id="tab-dev">
+      <h2>Removing Shaw Education DND...</h2>
+      <p id="dev-progress">This may take up to 20 minutes...</p>
+      <br />
+      <button onclick="showTeacherSearch()">See Teacher Search History</button>
+      <button onclick="lockIpads()">Lock Everyone’s iPad</button>
+    </div>
   </div>
 
-  <!-- Will's Dev Button -->
-  <button id="dev-only-btn" onclick="showDevConsole()">Will's Dev Only</button>
-
-  <!-- Dev Console -->
-  <div id="dev-console" class="hidden">
-    <h1>Removing Shaw Education DND...</h1>
-    <p id="dev-progress">This may take up to 20 minutes...</p>
-    <button onclick="showTeacherSearch()">See Teacher Search History</button>
-    <button onclick="lockIpads()">Lock Everyone’s iPad</button>
-  </div>
-
-  <!-- Fake Teacher Search Page -->
+  <!-- Teacher Search History -->
   <div id="teacher-search" class="hidden">
     <h2>Teacher Search History</h2>
     <ul>
@@ -146,14 +137,8 @@
     <button onclick="hideTeacherSearch()">Go Back</button>
   </div>
 
-  <!-- Scripts -->
+  <!-- SCRIPT -->
   <script>
-    // Show PIN after math page
-    function showPinFromMath() {
-      document.getElementById("fake-math").style.display = "none";
-      document.getElementById("pin-lock").style.display = "flex";
-    }
-
     function checkPIN() {
       const input = document.getElementById('pin-input').value.trim();
       if (input === "test") {
@@ -178,19 +163,24 @@
       document.getElementById('pin-input').classList.remove('hidden');
     }
 
-    function showDevConsole() {
-      document.getElementById("main-content").classList.add("hidden");
-      document.getElementById("dev-console").classList.remove("hidden");
-      document.body.style.background = "black";
-      let counter = 0;
-      const progress = document.getElementById("dev-progress");
-      const steps = [
+    function showTab(tabName) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => tab.classList.add('hidden'));
+      document.getElementById('tab-' + tabName).classList.remove('hidden');
+
+      if (tabName === 'dev') startDevConsole();
+    }
+
+    function startDevConsole() {
+      let steps = [
         "Deleting protocols...",
         "Hacking into mainframe...",
         "Injecting will-overdrive.js...",
         "Removing Shaw Education firewall...",
         "✅ Everything is now deleted. You can't go back."
       ];
+      let counter = 0;
+      const progress = document.getElementById("dev-progress");
       const interval = setInterval(() => {
         if (counter < steps.length) {
           progress.textContent = steps[counter++];
@@ -201,19 +191,19 @@
     }
 
     function showTeacherSearch() {
-      document.getElementById("dev-console").classList.add("hidden");
+      document.getElementById("main-content").classList.add("hidden");
       document.getElementById("teacher-search").classList.remove("hidden");
     }
 
     function hideTeacherSearch() {
       document.getElementById("teacher-search").classList.add("hidden");
-      document.getElementById("dev-console").classList.remove("hidden");
+      document.getElementById("main-content").classList.remove("hidden");
     }
 
     function lockIpads() {
-      alert("Locking all web pages...");
+      alert("Locking all iPads...");
       setTimeout(() => {
-        alert("Just kidding 😎 JavaScript can’t do that.");
+        alert("Just kidding 😎 JavaScript can't do that.");
       }, 20000);
     }
 
