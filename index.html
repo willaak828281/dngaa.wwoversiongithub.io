@@ -30,7 +30,8 @@
       z-index: 9999;
     }
 
-    #pin-lock input {
+    #pin-lock input,
+    #pin-lock button {
       padding: 10px;
       font-size: 16px;
       margin-top: 10px;
@@ -38,10 +39,6 @@
     }
 
     #pin-lock button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-family: inherit;
       background-color: lime;
       color: black;
       border: none;
@@ -55,21 +52,47 @@
     .hidden {
       display: none;
     }
+
+    a {
+      color: lime;
+      text-decoration: underline;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #flashing-text {
+      color: red;
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
   </style>
 </head>
 
 <body>
   <!-- PIN LOCK OVERLAY -->
   <div id="pin-lock">
-    <h2>Enter Access PIN</h2>
-    <input type="password" id="pin-input" placeholder="Enter PIN" />
-    <button onclick="checkPIN()">Unlock</button>
-    <p id="pin-message" style="color: red;"></p>
+    <div id="pin-entry-screen">
+      <h2>Enter Access PIN</h2>
+      <input type="password" id="pin-input" placeholder="Enter PIN" />
+      <button onclick="checkPIN()">Unlock</button>
+      <p id="pin-message" style="color: red;"></p>
+      <a onclick="showGetPinScreen()">Get PIN</a>
+    </div>
+
+    <div id="get-pin-screen" class="hidden">
+      <h2 id="flashing-text">Sub to Will's YT!</h2>
+      <p id="pin-reveal-message">Please wait 1 minute...</p>
+      <button class="hidden" id="back-to-pin" onclick="showPinEntry()">Go Back</button>
+    </div>
   </div>
 
   <!-- MAIN CONTENT (initially hidden) -->
   <div class="wrapper hidden" id="main-content">
-    <!-- ... all your current content goes here ... -->
     <div class="sidebar">
       <h2>WWO Unblocked Games Test</h2>
       <ul>
@@ -142,6 +165,21 @@
       } else {
         document.getElementById('pin-message').textContent = "Incorrect PIN. Try again.";
       }
+    }
+
+    function showGetPinScreen() {
+      document.getElementById('pin-entry-screen').classList.add('hidden');
+      document.getElementById('get-pin-screen').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('pin-reveal-message').textContent = "The PIN is: test";
+        document.getElementById('back-to-pin').classList.remove('hidden');
+      }, 60000); // 1 minute
+    }
+
+    function showPinEntry() {
+      document.getElementById('get-pin-screen').classList.add('hidden');
+      document.getElementById('pin-entry-screen').classList.remove('hidden');
     }
   </script>
 </body>
