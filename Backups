@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WWO Unblocked Games Test</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/blogDexStyle.css">
+  <link rel="stylesheet" href="css/seasonal.css">
+  <link rel="icon" href="img/favicon-32x32.png">
+  <meta name="description" content="Play free unblocked games anytime and anywhere! Enjoy a wide selection of fun, exciting, and safe games for school or work">
+
+  <style>
+    #pin-lock {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: lime;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+
+    #pin-lock input,
+    #pin-lock button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      font-family: inherit;
+    }
+
+    #pin-lock button {
+      background-color: lime;
+      color: black;
+      border: none;
+      cursor: pointer;
+    }
+
+    #pin-lock h2 {
+      margin-bottom: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    a {
+      color: lime;
+      text-decoration: underline;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    #flashing-text {
+      color: red;
+      animation: flash 1s infinite;
+    }
+
+    @keyframes flash {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- PIN LOCK OVERLAY -->
+  <div id="pin-lock">
+    <div id="pin-entry-screen">
+      <h2>Enter Access PIN</h2>
+      <input type="password" id="pin-input" placeholder="Enter PIN" />
+      <button onclick="checkPIN()">Unlock</button>
+      <p id="pin-message" style="color: red;"></p>
+      <a onclick="showGetPinScreen()">Get PIN</a>
+    </div>
+
+    <div id="get-pin-screen" class="hidden">
+      <h2 id="flashing-text">Sub to Will's YT!</h2>
+      <p id="pin-reveal-message">Please wait 1 minute...</p>
+      <button class="hidden" id="back-to-pin" onclick="showPinEntry()">Go Back</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT (initially hidden) -->
+  <div class="wrapper hidden" id="main-content">
+    <div class="sidebar">
+      <h2>WWO Unblocked Games Test</h2>
+      <ul>
+        <a href="index.html"><li class="selectedButton"><i class="fa-solid fa-house"></i> Home</li></a>
+        <a href="#"><li><i class="fa-solid fa-bug"></i> Bug Report</li></a>
+        <a href="#"><li><i class="fa-solid fa-ghost"></i> Game Request</li></a>
+        <a href="pages/settings.html"><li><i class="fa-solid fa-gear"></i> Settings</li></a>
+        <a><li id="go-to-top-button"><i class="fa-solid fa-up-long"></i> Top</li></a>
+      </ul>
+      <div class="left-col">
+        <img title="icon" src="img/icon.png" width="199px" />
+      </div>
+      <div>
+        <center><img src="https://visit-counter.vercel.app/counter.png?page=example.com&s=25&c=ffffff&bg=00000000&no=6&ff=digi&tb=&ta=" alt="visits"></center>
+      </div>
+    </div>
+
+    <div class="main_content">
+      <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <span id="random-quote">Loading...</span>
+      </div>
+      <div class="info">
+        <header>
+          <h1><div class="title">WWO Unblocked Games Test</div></h1>
+          <div class="right-col"><img title="music_icon" id="icon" src="img/play.png" /></div>
+          <audio id="mySong"><source src="media/beet-juice.mp4" type="audio/ogg" /></audio>
+        </header>
+        <br />
+      </div>
+
+      <!-- Navbar and Game Buttons -->
+      <ul id="navbar">
+        <div class="search-bar" style="margin-top: -25px">
+          <input type="text" id="myinput" onkeyup="searchFunction()" placeholder="Search">
+          <br>
+        </div>
+        <li class="nav"><button onclick="switchGame('all');" class="selectedButton selectable">All</button></li>
+        <li class="nav"><button onclick="switchGame('new');" class="selectButton selectable">New</button></li>
+        <li class="nav"><button onclick="switchGame('flash');" class="selectButton selectable">Flash</button></li>
+        <li class="nav"><button onclick="switchGame('gba');" class="selectButton selectable">GBA</button></li>
+        <li class="nav"><button onclick="switchGame('multi');" class="selectButton selectable">Multiplayer</button></li>
+      </ul>
+
+      <div class="bodyMain">
+        <div class="main">
+          <div class="row" id="game-container"></div>
+          <script src="js/games.js"></script>
+          <script src="js/renderGames.js"></script>
+        </div>
+        <div id="progress"><span id="progress-value"></span></div>
+      </div>
+
+      <script src="js/disguise.js"></script>
+      <script src="js/main.js"></script>
+      <script src="js/seasonal.js"></script>
+    </div>
+  </div>
+
+  <!-- Particles & JS -->
+  <div id="tsparticles"></div>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.8.1/tsparticles.bundle.min.js"></script>
+
+  <script>
+    function checkPIN() {
+      const input = document.getElementById('pin-input').value.trim();
+      if (input === "test") {
+        document.getElementById('pin-lock').style.display = 'none';
+        document.getElementById('main-content').classList.remove('hidden');
+      } else {
+        document.getElementById('pin-message').textContent = "Incorrect PIN. Try again.";
+      }
+    }
+
+    function showGetPinScreen() {
+      document.getElementById('pin-entry-screen').classList.add('hidden');
+      document.getElementById('get-pin-screen').classList.remove('hidden');
+
+      setTimeout(() => {
+        document.getElementById('pin-reveal-message').textContent = "The PIN is: test";
+        document.getElementById('back-to-pin').classList.remove('hidden');
+      }, 60000); // 1 minute
+    }
+
+    function showPinEntry() {
+      document.getElementById('get-pin-screen').classList.add('hidden');
+      document.getElementById('pin-entry-screen').classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>
